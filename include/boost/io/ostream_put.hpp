@@ -8,12 +8,20 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef BOOST_IO_OSTREAM_PUT_HPP
 #define BOOST_IO_OSTREAM_PUT_HPP
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_IO_INTERFACE_UNIT)
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.io;
+#endif
+#else
+
+#include <boost/io/detail/config.hpp>
 #include <boost/io/detail/buffer_fill.hpp>
 #include <boost/io/detail/ostream_guard.hpp>
 
 namespace boost {
 namespace io {
 
+BOOST_IO_MODULE_EXPORT
 template<class charT, class traits>
 inline std::basic_ostream<charT, traits>&
 ostream_put(std::basic_ostream<charT, traits>& os, const charT* data,
@@ -46,5 +54,7 @@ ostream_put(std::basic_ostream<charT, traits>& os, const charT* data,
 
 } /* io */
 } /* boost */
+
+#endif // #if defined(BOOST_USE_MODULES) ...
 
 #endif

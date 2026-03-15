@@ -8,13 +8,21 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef BOOST_IO_NULLSTREAM_HPP
 #define BOOST_IO_NULLSTREAM_HPP
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_IO_INTERFACE_UNIT)
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.io;
+#endif
+#else
+
 #include <boost/config.hpp>
-#include <ostream>
-#include <streambuf>
+#include <boost/io/detail/config.hpp>
+#include <boost/config/std/ostream.hpp>
+#include <boost/config/std/streambuf.hpp>
 
 namespace boost {
 namespace io {
 
+BOOST_IO_MODULE_EXPORT
 template<class CharT, class Traits = std::char_traits<CharT> >
 class basic_nullbuf
     : public std::basic_streambuf<CharT, Traits> {
@@ -44,6 +52,7 @@ private:
 
 } /* detail */
 
+BOOST_IO_MODULE_EXPORT
 template<class CharT, class Traits = std::char_traits<CharT> >
 class basic_onullstream
     : detail::nullbuf<CharT, Traits>
@@ -54,10 +63,12 @@ public:
              Traits>::buf()) { }
 };
 
-typedef basic_onullstream<char> onullstream;
-typedef basic_onullstream<wchar_t> wonullstream;
+BOOST_IO_MODULE_EXPORT typedef basic_onullstream<char> onullstream;
+BOOST_IO_MODULE_EXPORT typedef basic_onullstream<wchar_t> wonullstream;
 
 } /* io */
 } /* boost */
+
+#endif // #if defined(BOOST_USE_MODULES) ...
 
 #endif

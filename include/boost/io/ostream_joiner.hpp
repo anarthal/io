@@ -8,14 +8,21 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef BOOST_IO_OSTREAM_JOINER_HPP
 #define BOOST_IO_OSTREAM_JOINER_HPP
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_IO_INTERFACE_UNIT)
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.io;
+#endif
+#else
+
 #include <boost/config.hpp>
-#include <ostream>
-#include <string>
+#include <boost/io/detail/config.hpp>
+#include <boost/config/std/ostream.hpp>
+#include <boost/config/std/string.hpp>
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 #if !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
-#include <type_traits>
+#include <boost/config/std/type_traits.hpp>
 #endif
-#include <utility>
+#include <boost/config/std/utility.hpp>
 #endif
 
 namespace boost {
@@ -40,6 +47,7 @@ osj_address(T& obj)
 
 } /* detail */
 
+BOOST_IO_MODULE_EXPORT
 template<class Delim, class Char = char,
     class Traits = std::char_traits<Char> >
 class ostream_joiner {
@@ -95,6 +103,7 @@ private:
 
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && \
     !defined(BOOST_NO_CXX11_HDR_TYPE_TRAITS)
+BOOST_IO_MODULE_EXPORT
 template<class Char, class Traits, class Delim>
 inline ostream_joiner<typename std::decay<Delim>::type, Char, Traits>
 make_ostream_joiner(std::basic_ostream<Char, Traits>& output, Delim&& delim)
@@ -103,6 +112,7 @@ make_ostream_joiner(std::basic_ostream<Char, Traits>& output, Delim&& delim)
         Traits>(output, std::forward<Delim>(delim));
 }
 #else
+BOOST_IO_MODULE_EXPORT
 template<class Char, class Traits, class Delim>
 inline ostream_joiner<Delim, Char, Traits>
 make_ostream_joiner(std::basic_ostream<Char, Traits>& output,
@@ -114,5 +124,7 @@ make_ostream_joiner(std::basic_ostream<Char, Traits>& output,
 
 } /* io */
 } /* boost */
+
+#endif // #if defined(BOOST_USE_MODULES) ...
 
 #endif

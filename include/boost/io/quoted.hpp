@@ -10,6 +10,13 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef BOOST_IO_QUOTED_HPP
 #define BOOST_IO_QUOTED_HPP
 
+#if defined(BOOST_USE_MODULES) && !defined(BOOST_IO_INTERFACE_UNIT)
+#ifndef BOOST_IN_MODULE_PURVIEW
+import boost.io;
+#endif
+#else
+
+#include <boost/io/detail/config.hpp>
 #include <boost/io/detail/buffer_fill.hpp>
 #include <boost/io/detail/ostream_guard.hpp>
 #include <boost/io/ios_state.hpp>
@@ -182,6 +189,7 @@ operator>>(std::basic_istream<Char, Traits>& is,
 
 } /* detail */
 
+BOOST_IO_MODULE_EXPORT
 template<class Char, class Traits, class Alloc>
 inline detail::quoted_proxy<const std::basic_string<Char, Traits, Alloc>*,
     Char>
@@ -193,6 +201,7 @@ quoted(const std::basic_string<Char, Traits, Alloc>& s, Char escape='\\',
     return proxy;
 }
 
+BOOST_IO_MODULE_EXPORT
 template<class Char, class Traits, class Alloc>
 inline detail::quoted_proxy<std::basic_string<Char, Traits, Alloc>*, Char>
 quoted(std::basic_string<Char, Traits, Alloc>& s, Char escape='\\',
@@ -203,6 +212,7 @@ quoted(std::basic_string<Char, Traits, Alloc>& s, Char escape='\\',
     return proxy;
 }
 
+BOOST_IO_MODULE_EXPORT
 template<class Char>
 inline detail::quoted_proxy<const Char*, Char>
 quoted(const Char* s, Char escape='\\', Char delim='\"')
@@ -213,5 +223,7 @@ quoted(const Char* s, Char escape='\\', Char delim='\"')
 
 } /* io */
 } /* boost */
+
+#endif // #if defined(BOOST_USE_MODULES) ...
 
 #endif

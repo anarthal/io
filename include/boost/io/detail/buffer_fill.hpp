@@ -8,8 +8,8 @@ Distributed under the Boost Software License, Version 1.0.
 #ifndef BOOST_IO_DETAIL_BUFFER_FILL_HPP
 #define BOOST_IO_DETAIL_BUFFER_FILL_HPP
 
-#include <iosfwd>
-#include <cstddef>
+#include <boost/config/std/iosfwd.hpp>
+#include <boost/config/std/cstddef.hpp>
 
 namespace boost {
 namespace io {

@@ -9,7 +9,7 @@ Distributed under the Boost Software License, Version 1.0.
 #define BOOST_IO_DETAIL_OSTREAM_GUARD_HPP
 
 #include <boost/config.hpp>
-#include <iosfwd>
+#include <boost/config/std/iosfwd.hpp>
 
 namespace boost {
 namespace io {
